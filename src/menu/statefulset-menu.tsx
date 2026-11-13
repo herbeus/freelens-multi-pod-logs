@@ -16,9 +16,7 @@ export class StatefulSetMultiPodLogsMenu extends React.Component<
 > {
   statefulset: StatefulSet;
 
-  protected sStore = Renderer.K8sApi.apiManager.getStore(
-    Renderer.K8sApi.statefulSetApi
-  ) as Renderer.K8sApi.StatefulSetStore;
+  protected sStore = Renderer.K8sApi.statefulSetStore;
 
   constructor(props: Renderer.Component.KubeObjectMenuProps<StatefulSet>) {
     super(props);

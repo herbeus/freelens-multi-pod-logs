@@ -16,9 +16,7 @@ export class ReplicaSetMultiPodLogsMenu extends React.Component<
 > {
   replicaset: ReplicaSet;
 
-  protected dStore = Renderer.K8sApi.apiManager.getStore(
-    Renderer.K8sApi.replicaSetApi
-  ) as Renderer.K8sApi.ReplicaSetStore;
+  protected dStore = Renderer.K8sApi.replicaSetStore;
 
   constructor(props: Renderer.Component.KubeObjectMenuProps<ReplicaSet>) {
     super(props);

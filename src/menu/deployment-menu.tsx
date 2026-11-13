@@ -16,9 +16,7 @@ export class DeploymentMultiPodLogsMenu extends React.Component<
 > {
   deployment: Deployment;
 
-  protected dStore = Renderer.K8sApi.apiManager.getStore(
-    Renderer.K8sApi.deploymentApi
-  ) as Renderer.K8sApi.DeploymentStore;
+  protected dStore = Renderer.K8sApi.deploymentStore;
 
   constructor(props: Renderer.Component.KubeObjectMenuProps<Deployment>) {
     super(props);

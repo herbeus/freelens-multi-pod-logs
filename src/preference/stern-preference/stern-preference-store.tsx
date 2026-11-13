@@ -13,12 +13,12 @@ export type MultiPodLogsSternPreferenceModel = {
 export class MultiPodLogsSternPreferencesStore extends Common.Store
   .ExtensionStore<MultiPodLogsSternPreferenceModel> {
   // Store properties
-  @observable krew = false;
-  @observable timestamp = "no";
-  @observable since = "1s";
-  @observable maxLogRequests = 50;
-  @observable builtInTemplate = "";
-  @observable customTemplate = "";
+  krew = false;
+  timestamp = "no";
+  since = "1s";
+  maxLogRequests = 50;
+  builtInTemplate = "";
+  customTemplate = "";
 
   constructor() {
     super({
@@ -34,7 +34,14 @@ export class MultiPodLogsSternPreferencesStore extends Common.Store
         customTemplate: "",
       },
     });
-    makeObservable(this);
+    makeObservable(this, {
+      krew: observable,
+      timestamp: observable,
+      since: observable,
+      maxLogRequests: observable,
+      builtInTemplate: observable,
+      customTemplate: observable,
+    });
   }
 
   public fromStore({

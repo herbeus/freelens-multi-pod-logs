@@ -16,9 +16,7 @@ export class DaemonSetMultiPodLogsMenu extends React.Component<
 > {
   daemonset: DaemonSet;
 
-  protected dStore = Renderer.K8sApi.apiManager.getStore(
-    Renderer.K8sApi.daemonSetApi
-  ) as Renderer.K8sApi.DaemonSetStore;
+  protected dStore = Renderer.K8sApi.daemonSetStore;
 
   constructor(props: Renderer.Component.KubeObjectMenuProps<DaemonSet>) {
     super(props);

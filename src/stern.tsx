@@ -86,7 +86,7 @@ export class SternCmd {
         cmdParts.push("--container", `"${flags.container}"`);
       }
       if (flags.containerColors && flags.containerColors.length > 0) {
-        cmdParts.push("--container-state", flags.containerColors.join(","));
+        cmdParts.push("--container-colors", flags.containerColors.join(","));
       }
       if (flags.containerState && flags.containerState.length > 0) {
         const containerState = flags.containerState.filter((s) =>
@@ -160,7 +160,7 @@ export class SternCmd {
         cmdParts.push("--prompt");
       }
       if (flags.podColors && flags.podColors.length > 0) {
-        cmdParts.push("--container-state", flags.podColors.join(","));
+        cmdParts.push("--pod-colors", flags.podColors.join(","));
       }
       if (flags.selector) {
         cmdParts.push("--selector", `"${flags.selector}"`);

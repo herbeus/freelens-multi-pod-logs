@@ -7,8 +7,7 @@ const {
   Component: { SubTitle, Switch, Input, InputValidators, Select },
 } = Renderer;
 
-@observer
-export class MultiPodLogsSternPreference extends React.Component {
+class SternPreference extends React.Component {
   render() {
     const dividerStyle = {
       height: "1px",
@@ -129,6 +128,8 @@ export class MultiPodLogsSternPreference extends React.Component {
     );
   }
 }
+
+export const MultiPodLogsSternPreference = observer(SternPreference);
 
 export class MultiPodLogsSternPreferenceHint extends React.Component {
   render() {
