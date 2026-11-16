@@ -23,14 +23,14 @@ A [Freelens](https://github.com/freelensapp/freelens) extension that enables you
 > If you don't know how to install it you can follow [these steps](STERN.md).
 
 ## 🧰 Installing
-Just make sure Freelens is running, and follow these simple steps:
+> This fork targets **Freelens 2.x**. The npm package `@andrea-falco/freelens-multi-pod-logs` only works with Freelens 1.x.
 
- 1. Go to Extensions view (`Menu -> File -> Extensions`)
- 2. Enter the name of this extension, `@andrea-falco/freelens-multi-pod-logs`
- 3. Click on the **Install** button
+ 1. Download the `.tgz` from the latest [release](https://github.com/herbeus/freelens-multi-pod-logs/releases/latest)
+ 2. Go to Extensions view (`Menu -> File -> Extensions`), uninstall an older version if present
+ 3. Enter the path to the `.tgz` (or drag and drop it into the window) and click **Install**
  4. Make sure the extension is enabled
 
-![install-by-name](img/install.png)
+To release a new version: bump `version` in `package.json`, commit and push a matching tag (`v<version>`); the release workflow builds and attaches the `.tgz`.
 
 ---
 
