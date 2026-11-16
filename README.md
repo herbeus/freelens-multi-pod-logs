@@ -16,7 +16,12 @@ A [Freelens](https://github.com/freelensapp/freelens) extension that enables you
  <a href="https://ko-fi.com/A0A8J3CMJ"><img src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>
 </p>
 
-## 🚧 Requirements
+## ✨ Built-in log viewer (no stern needed)
+Since 2.1.0 the menu action opens a **Multi Pod Logs** page that reads the logs of all pods and containers of the workload through the Kubernetes API. No `stern` binary is needed, so it works the same on Windows, macOS and Linux. Lines are merged by time and colored per pod/container; new pods (e.g. during a rollout) are picked up automatically. The page has a regex filter, pause, wrap and follow.
+
+The previous behaviour (stern in a terminal) is still available: enable *Use stern in a terminal* in the extension preferences.
+
+## 🚧 Requirements (stern mode only)
 - Freelens `>= 1.0.0`
 - [stern](https://github.com/stern/stern/releases) `>= 1.30.0`
 > ⚠️ This extension uses `stern` under the hood, so it needs to be installed on your computer for the extension to work.

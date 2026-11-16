@@ -2,6 +2,7 @@ import { Common } from "@freelensapp/extensions";
 import { observable, makeObservable } from "mobx";
 
 export type MultiPodLogsSternPreferenceModel = {
+  useStern: boolean;
   krew: boolean;
   timestamp: string;
   since: string;
@@ -13,9 +14,10 @@ export type MultiPodLogsSternPreferenceModel = {
 export class MultiPodLogsSternPreferencesStore extends Common.Store
   .ExtensionStore<MultiPodLogsSternPreferenceModel> {
   // Store properties
+  useStern = false;
   krew = false;
   timestamp = "no";
-  since = "1s";
+  since = "5m";
   maxLogRequests = 50;
   builtInTemplate = "";
   customTemplate = "";
@@ -26,15 +28,17 @@ export class MultiPodLogsSternPreferencesStore extends Common.Store
       configName: "stern-preference-store",
       // Store default property values
       defaults: {
+        useStern: false,
         krew: false,
         timestamp: "no",
-        since: "1s",
+        since: "5m",
         maxLogRequests: 50,
         builtInTemplate: "default",
         customTemplate: "",
       },
     });
     makeObservable(this, {
+      useStern: observable,
       krew: observable,
       timestamp: observable,
       since: observable,
@@ -45,13 +49,15 @@ export class MultiPodLogsSternPreferencesStore extends Common.Store
   }
 
   public fromStore({
+    useStern,
     krew,
     timestamp,
     since,
     maxLogRequests,
     builtInTemplate,
     customTemplate,
-  }: MultiPodLogsSternPreferenceModel): void {
+  }: Partial<MultiPodLogsSternPreferenceModel>): void {
+    this.useStern = useStern ?? false;
     this.krew = krew;
     this.timestamp = timestamp;
     this.since = since;
@@ -62,6 +68,7 @@ export class MultiPodLogsSternPreferencesStore extends Common.Store
 
   toJSON(): MultiPodLogsSternPreferenceModel {
     return {
+      useStern: this.useStern,
       krew: this.krew,
       timestamp: this.timestamp,
       since: this.since,

@@ -7,6 +7,8 @@ import { ReplicaSetMultiPodLogsMenu } from "./src/menu/replicaset-menu";
 import { DaemonSetMultiPodLogsMenu } from "./src/menu/daemonset-menu";
 
 import { sternPreferenceStore } from "./src/preference/stern-preference/stern-preference-store";
+import { MultiPodLogsCommon } from "./src/common";
+import { MultiPodLogsPage } from "./src/native/multi-pod-logs-page";
 import {
   MultiPodLogsSternPreference,
   MultiPodLogsSternPreferenceHint,
@@ -70,6 +72,22 @@ export default class MultiPodLogsRenderer extends Renderer.LensExtension {
     },
   ];
 
+  clusterPages = [
+    {
+      id: "logs",
+      params: {
+        kind: { defaultValue: "" },
+        namespace: { defaultValue: "" },
+        name: { defaultValue: "" },
+        container: { defaultValue: "" },
+        exclude: { defaultValue: "" },
+      },
+      components: {
+        Page: MultiPodLogsPage,
+      },
+    },
+  ];
+
   // Array of objects for extension preferences
   appPreferences = [
     {
@@ -85,6 +103,7 @@ export default class MultiPodLogsRenderer extends Renderer.LensExtension {
   onActivate() {
     console.log("freelens-multi-pod-logs renderer | activating...");
     sternPreferenceStore.loadExtension(this);
+    MultiPodLogsCommon.extension = this;
     console.log("freelens-multi-pod-logs renderer | activated");
   }
 

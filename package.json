@@ -1,7 +1,7 @@
 {
   "name": "@andrea-falco/freelens-multi-pod-logs",
   "description": "Multi pod and container logs for Freelens",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Andrea Falco",
   "publisher": "Andrea Falco",
   "repository": {
@@ -26,7 +26,6 @@
   "files": [
     "dist/**/*"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@babel/preset-env": "^7.17.10",
     "@babel/preset-react": "^7.16.7",

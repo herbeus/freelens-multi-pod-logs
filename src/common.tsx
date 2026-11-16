@@ -10,6 +10,9 @@ const {
 type Pod = Renderer.K8sApi.Pod;
 
 export class MultiPodLogsCommon {
+  /** Set by the renderer extension so menu actions can open the logs page. */
+  public static extension?: Renderer.LensExtension;
+
   /**
    * Get the container name list by a list of pods.
    *
@@ -152,6 +155,18 @@ export class MultiPodLogsCommon {
     resourceTitle: string,
     options?: { exclude?: string; include?: string }
   ) {
+    if (!sternPreferenceStore.useStern && this.extension) {
+      void this.extension.navigate("logs", {
+        kind: resourceType,
+        namespace: resourceNs,
+        name: resourceName,
+        container: options?.include ?? "",
+        exclude: options?.exclude ?? "",
+      });
+      Renderer.Navigation.hideDetails();
+      return;
+    }
+
     // Generate stern command
     const cmd = SternCmd.generateCmd(
       `${resourceType}/${resourceName}`,

@@ -40,7 +40,24 @@ class SternPreference extends React.Component {
 
     return (
       <section>
-        <SubTitle title="Krew Package Manager" />
+        <SubTitle title="Log Viewer" />
+        <Switch
+          checked={sternPreferenceStore.useStern}
+          onChange={() => {
+            sternPreferenceStore.useStern = !sternPreferenceStore.useStern;
+          }}
+        >
+          Use stern in a terminal instead of the built-in viewer (needs stern installed)
+        </Switch>
+        <span style={hintStyle}>
+          The built-in viewer reads logs through the Kubernetes API and needs no extra
+          tools. Since, timestamp and max log requests apply to both; the remaining
+          options only to stern.
+        </span>
+
+        <div style={dividerStyle}></div>
+
+        <SubTitle title="Krew Package Manager (stern only)" />
         <Switch
           checked={sternPreferenceStore.krew}
           onChange={() => {
@@ -69,7 +86,7 @@ class SternPreference extends React.Component {
         <Input
           theme="round-black"
           type="text"
-          placeholder="1s"
+          placeholder="5m"
           value={sternPreferenceStore.since}
           onChange={(v) => {
             sternPreferenceStore.since = v;
