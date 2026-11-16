@@ -184,6 +184,7 @@ export class MultiPodLogsView extends React.Component<Props, State> {
             {button("Wrap", () => this.setState({ wrap: !wrap }), wrap)}
             {button("Follow", () => this.setState({ follow: !follow }), follow)}
             {button("Clear", () => this.collector?.clear())}
+            {button("Close", closePage)}
           </div>
         </div>
         <div className="mpl-streams">
@@ -241,6 +242,12 @@ const CSS = `
 `;
 
 /** Page component: reads its target from the page params. */
+/** Back to where the logs were opened from; the page stops streaming on unmount. */
+function closePage(): void {
+  if (window.history.length > 1) window.history.back();
+  else Renderer.Navigation.navigate("/workloads");
+}
+
 export const MultiPodLogsPage = (props: Common.Types.PageComponentProps) => {
   const p = props.params as Record<string, { get(): string }>;
   return (
