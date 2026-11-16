@@ -1,7 +1,7 @@
 {
   "name": "@andrea-falco/freelens-multi-pod-logs",
   "description": "Multi pod and container logs for Freelens",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "author": "Andrea Falco",
   "publisher": "Andrea Falco",
   "repository": {

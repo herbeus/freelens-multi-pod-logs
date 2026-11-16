@@ -1,5 +1,6 @@
 import React from "react";
 import { Common, Renderer } from "@freelensapp/extensions";
+import { selectorFor } from "./selector";
 import { LogCollector, LogLine, PodRef, parseDuration } from "./log-collector";
 import { sternPreferenceStore } from "../preference/stern-preference/stern-preference-store";
 
@@ -8,23 +9,6 @@ type Pod = Renderer.K8sApi.Pod;
 const COLORS = ["#4fc3f7", "#81c784", "#ffb74d", "#e57373", "#ba68c8", "#4db6ac", "#f06292", "#dce775", "#9575cd", "#a1887f"];
 // eslint-disable-next-line no-control-regex
 const ANSI = /\x1b\[[0-9;]*m/g;
-
-const workloadApis: Record<string, () => { get(desc: { name: string; namespace: string }): Promise<unknown> }> = {
-  deployment: () => Renderer.K8sApi.deploymentApi,
-  statefulset: () => Renderer.K8sApi.statefulSetApi,
-  replicaset: () => Renderer.K8sApi.replicaSetApi,
-  daemonset: () => Renderer.K8sApi.daemonSetApi,
-};
-
-async function selectorFor(kind: string, name: string, namespace: string): Promise<string> {
-  const api = workloadApis[kind]?.();
-  if (!api) throw new Error(`Unsupported kind ${kind}`);
-  const workload = (await api.get({ name, namespace })) as { getSelectors(): string[] } | null;
-  if (!workload) throw new Error(`${kind} ${namespace}/${name} not found`);
-  const selector = workload.getSelectors().join(",");
-  if (!selector) throw new Error(`${kind} ${namespace}/${name} has no matchLabels selector`);
-  return selector;
-}
 
 function formatTs(ts: string, mode: string): string {
   if (mode === "short") return ts.slice(5, 19).replace("T", " ");

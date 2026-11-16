@@ -1,8 +1,12 @@
 import { Common } from "@freelensapp/extensions";
 import { observable, makeObservable } from "mobx";
 
+export type LogViewer = "kubectl" | "page" | "stern";
+
 export type MultiPodLogsSternPreferenceModel = {
-  useStern: boolean;
+  viewer: LogViewer;
+  /** @deprecated replaced by viewer, only read for migration */
+  useStern?: boolean;
   krew: boolean;
   timestamp: string;
   since: string;
@@ -14,7 +18,7 @@ export type MultiPodLogsSternPreferenceModel = {
 export class MultiPodLogsSternPreferencesStore extends Common.Store
   .ExtensionStore<MultiPodLogsSternPreferenceModel> {
   // Store properties
-  useStern = false;
+  viewer: LogViewer = "kubectl";
   krew = false;
   timestamp = "no";
   since = "5m";
@@ -28,7 +32,7 @@ export class MultiPodLogsSternPreferencesStore extends Common.Store
       configName: "stern-preference-store",
       // Store default property values
       defaults: {
-        useStern: false,
+        viewer: "kubectl",
         krew: false,
         timestamp: "no",
         since: "5m",
@@ -38,7 +42,7 @@ export class MultiPodLogsSternPreferencesStore extends Common.Store
       },
     });
     makeObservable(this, {
-      useStern: observable,
+      viewer: observable,
       krew: observable,
       timestamp: observable,
       since: observable,
@@ -49,6 +53,7 @@ export class MultiPodLogsSternPreferencesStore extends Common.Store
   }
 
   public fromStore({
+    viewer,
     useStern,
     krew,
     timestamp,
@@ -57,7 +62,7 @@ export class MultiPodLogsSternPreferencesStore extends Common.Store
     builtInTemplate,
     customTemplate,
   }: Partial<MultiPodLogsSternPreferenceModel>): void {
-    this.useStern = useStern ?? false;
+    this.viewer = viewer ?? (useStern ? "stern" : "kubectl");
     this.krew = krew;
     this.timestamp = timestamp;
     this.since = since;
@@ -68,7 +73,7 @@ export class MultiPodLogsSternPreferencesStore extends Common.Store
 
   toJSON(): MultiPodLogsSternPreferenceModel {
     return {
-      useStern: this.useStern,
+      viewer: this.viewer,
       krew: this.krew,
       timestamp: this.timestamp,
       since: this.since,

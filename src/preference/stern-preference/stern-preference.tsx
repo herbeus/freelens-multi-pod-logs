@@ -30,6 +30,12 @@ class SternPreference extends React.Component {
       { value: "short", label: "Short (i.e. \"01-02 15:04:05\")" },
     ];
 
+    const viewerOptions = [
+      { value: "kubectl" as const, label: "kubectl logs in a terminal tab (dock)" },
+      { value: "page" as const, label: "Built-in log page" },
+      { value: "stern" as const, label: "stern in a terminal tab (dock)" },
+    ];
+
     const builtInTemplateOptions = [
       { value: "default", label: "Default" },
       { value: "raw", label: "Raw" },
@@ -41,18 +47,20 @@ class SternPreference extends React.Component {
     return (
       <section>
         <SubTitle title="Log Viewer" />
-        <Switch
-          checked={sternPreferenceStore.useStern}
-          onChange={() => {
-            sternPreferenceStore.useStern = !sternPreferenceStore.useStern;
+        <Select
+          themeName="lens"
+          options={viewerOptions}
+          value={sternPreferenceStore.viewer}
+          onChange={(v) => {
+            sternPreferenceStore.viewer = v.value;
           }}
-        >
-          Use stern in a terminal instead of the built-in viewer (needs stern installed)
-        </Switch>
+        />
         <span style={hintStyle}>
-          The built-in viewer reads logs through the Kubernetes API and needs no extra
-          tools. Since, timestamp and max log requests apply to both; the remaining
-          options only to stern.
+          kubectl: runs in a terminal tab of the dock, next to the other views, no extra
+          tools needed; pods started later (rollout) are not picked up. Built-in page:
+          merges, colors and filters the logs and follows new pods, but uses the main
+          view. stern: like kubectl, needs stern installed. Since, timestamp and max log
+          requests apply to all; the remaining options only to stern.
         </span>
 
         <div style={dividerStyle}></div>
